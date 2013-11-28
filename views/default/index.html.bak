@@ -1,0 +1,91 @@
+{{extend 'layout.html'}}
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery UI Sortable - Default functionality</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css">
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script>
+  $(function() {
+    $( "#Sorted_Presidents" ).sortable();
+    $( "#Sorted_Presidents" ).disableSelection();
+  });
+  function checkSort(){
+    document.getElementById("changetext").innerHTML="You Won"
+  }
+
+  $(document).ready(function() {
+  var list = document.getElementById("Sorted_Presidents");
+
+  $('#Sorted_Presidents').sortable({
+      update:function(event,ui){ //everytime item is sorted
+        var order = [1,2,3,4,5,6,7,8,9,10] //set order of ids
+        var IDs = $('#Sorted_Presidents').sortable("toArray"); //set order of array elements
+        if (order.join() === IDs.join()){ //if two arrays are the same
+          $('.Item').css("background-color","#D9D919"); //turn yellow
+          document.getElementById("winner").innerHTML="You Won!"
+        }
+      }
+    });
+  //shuffle list items
+  function shuffle(items)
+  {
+    var cached = items.slice(0), temp, i = cached.length, rand;
+    while(--i)
+    {
+      rand = Math.floor(i * Math.random());
+      temp = cached[rand];
+      cached[rand] = cached[i];
+      cached[i] = temp;
+    }
+    return cached;
+  }
+    var nodes = list.children, i = 0;
+    nodes = Array.prototype.slice.call(nodes);
+    nodes = shuffle(nodes);
+    while(i < nodes.length)
+    {
+      list.appendChild(nodes[i]);
+      ++i;
+    }
+  }); 
+  </script>
+</head>
+<body>
+
+    <h3 id = 'winner'> </h3>
+
+<div id="Sorted_Presidents">
+  <div class = 'Item' id = '1'><span class = 'name'>Harry S Truman </span> </div>
+  <div class = 'Item' id = '2'><span class = 'name'>John Fitzgerald Kennedy</span> </div>
+  <div class = 'Item' id = '3'><span class = 'name'>Lyndon Baines Johnson</span> </div>
+  <div class = 'Item' id = '4'><span class = 'name'>Richard Milhous Nixon</span></div>
+  <div class = 'Item' id = '5'><span class = 'name'>James Earl Carter Jr</span></div>
+  <div class = 'Item' id = '6'><span class = 'name'>Ronald Reagan</span></div>
+  <div class = 'Item' id = '7'><span class = 'name'>George H Bush</span></div>
+  <div class = 'Item' id = '8'><span class = 'name'>Bill Clinton</span></div>
+  <div class = 'Item' id = '9'><span class = 'name'>George W Bush</span></div>
+  <div class = 'Item' id = '10'><span class = 'name'>Barrack Obama </span></div>
+</div>
+    
+     <h4>
+        Order of Presidents: Harry, John, Lyndon, Richard, James, Ronald, George, Bill, George, Barrack. Good Luck!
+    </h4>
+    
+<!--     
+<ul id="sortable">
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+</ul>
+-->
+ 
+</body>
+</html>
